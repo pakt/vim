@@ -125,5 +125,5 @@ endfunction
 " This command will cause SnippetsUpdate() with parameter <your_snip_dir>
 nmap <leader>rr :call SnippetsUpdate("~/.vim/snippets/")<CR>
 
-t_Co=256
+set t_Co=256
 colo zenburn
