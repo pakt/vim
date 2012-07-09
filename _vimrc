@@ -4,6 +4,7 @@ au GUIEnter * simalt ~x "open maximised
 
 filetype plugin on
 
+set fileencodings=utf-8,latin2
 set enc=utf-8
 set relativenumber 	
 
@@ -113,4 +114,16 @@ autocmd BufReadPost *
 " Remember info about open buffers on close
 set viminfo^=%
 
+" reload vim snippets
+" This function will update snippets list for current and empty filetype:
+function! SnippetsUpdate(snip_dir)
+  call ResetSnippets()
+  call GetSnippets(a:snip_dir, '_')
+  call GetSnippets(a:snip_dir, &ft)
+endfunction
+
+" This command will cause SnippetsUpdate() with parameter <your_snip_dir>
+nmap <leader>rr :call SnippetsUpdate("~/.vim/snippets/")<CR>
+
+t_Co=256
 colo zenburn
