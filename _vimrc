@@ -1,15 +1,11 @@
 " http://vimdoc.sourceforge.net/htmldoc/starting.html#vimrc
 
-au GUIEnter * simalt ~x "open maximised
-
 filetype plugin on
 
 set fileencodings=utf-8,latin2
 set enc=utf-8
 set relativenumber 	
 
-set guioptions-=m  "remove menu bar
-set guioptions-=T  "remove toolbar
 set wildmenu
 set wildmode=list:longest " make completion behave like in bash
 
@@ -68,7 +64,6 @@ let g:mapleader = " "
 
 " Fast saving
 nmap <leader>w :w!<cr>
-" This is fast after exiting from insert mode
 map <F2> :w<cr>
 
 " kill hilights
@@ -85,6 +80,8 @@ map <leader>pp :setlocal paste!<cr>
 " Scroll faster
 nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
+" Exit insert mode faster
+inoremap jj <ESC>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
@@ -114,6 +111,9 @@ autocmd BufReadPost *
 " Remember info about open buffers on close
 set viminfo^=%
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Snippets
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " reload vim snippets
 " This function will update snippets list for current and empty filetype:
 function! SnippetsUpdate(snip_dir)
@@ -125,5 +125,34 @@ endfunction
 " This command will cause SnippetsUpdate() with parameter <your_snip_dir>
 nmap <leader>rr :call SnippetsUpdate("~/.vim/snippets/")<CR>
 
-set t_Co=256
-colo zenburn
+" setup for the visual environment
+if has('gui_running')
+        if (match(system("uname -s"), "Darwin") != -1)
+            set lines=999
+            set columns=999 "fix shitty maximization in macvim
+        else
+            au GUIEnter * simalt ~x "open maximised
+        endif
+        set guioptions-=m   "remove menu bar
+        set guioptions-=T   "remove toolbar
+        set guioptions+=c   "console dialogs
+else
+        if $TERM =~ '^xterm'
+                set t_Co=256 
+        elseif $TERM =~ '^screen-bce'
+                set t_Co=256            " just guessing
+        elseif $TERM =~ '^rxvt'
+                set t_Co=88
+        elseif $TERM =~ '^linux'
+                set t_Co=8
+        else
+                set t_Co=16
+        endif
+endif
+
+try
+    colo zenburn
+catch /^Vim\%((\a\+)\)\=:E185/
+    " deal with it
+    colo torte
+endtry
