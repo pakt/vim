@@ -63,16 +63,18 @@ let mapleader = " "
 let g:mapleader = " "
 
 " Fast saving
-nmap <leader>w :w!<cr>
+nmap <leader>w :w<cr>
 map <F2> :w<cr>
 
 " kill hilights
 nnoremap <leader><space> :noh<cr>   
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Misc
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" close tab
+map <leader>c :tabclose<cr>
+" quickly close all if nothing waits for saving
+map <leader>q :qa<cr>
+
 " Quickly open a buffer for scribble
-map <leader>q :tabe ~/buffer<cr>
+map <leader>e :tabe ~/buffer<cr>
 
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
@@ -92,8 +94,6 @@ map <C-l> :tabn<CR>
 " Move tabs with ctrl + j|k
 nnoremap <silent> <C-j> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 nnoremap <silent> <C-k> :execute 'silent! tabmove ' . tabpagenr()<CR>
-
-map <leader>c :tabclose<cr>
 
 " Specify the behavior when switching between buffers 
 try
@@ -136,7 +136,9 @@ if has('gui_running')
         set guioptions-=m   "remove menu bar
         set guioptions-=T   "remove toolbar
         set guioptions+=c   "console dialogs
+        set guitablabel=(%N)\ %t\ %M    "enumerate tabs
 else
+        set tabline=(%N)\ %t\ %M
         if $TERM =~ '^xterm'
                 set t_Co=256 
         elseif $TERM =~ '^screen-bce'
