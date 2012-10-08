@@ -157,36 +157,14 @@ catch /^Vim\%((\a\+)\)\=:E185/
     colo torte
 endtry
 
-function! HtmlEscape()
-  silent %s/&/\&amp;/e
-  silent %s/</\&lt;/e
-  silent %s/>/\&gt;/e
-endfunction
-
-function! HtmlUnEscape()
-  silent :%s/&lt;/</e
-  silent :%s/&gt;/>/e
-  "silent :%s/&amp;/\&/
-endfunction
-
-function! SOAP()
-    silent :%s/\v([0-9a-f]+-){4,}[a-f0-9]+/{uuid}/e
-    silent :%s/POPOnlineTester2/{username}/e
-endfunction
-
-function! InsertNewLine()
-    silent :%s/<r key/\r<r key/e
-    silent :%s/<x>/\r<x>/e
-    silent :%s/<\/x>/\r<\/x>\r/e
-endfunction
-
-nnoremap <Leader>h :call HtmlUnEscape()<CR>
-nnoremap <Leader>H :call HtmlEscape()<CR>
-nnoremap <Leader>S :call SOAP()<CR>
-nnoremap <Leader>s :call SOAP()<CR>:call HtmlUnEscape()<CR>:call InsertNewLine()<CR>
-
 " fold / unfold inside multiline strings
 nnoremap <Leader>f zfip<CR>
 nnoremap <Leader>g za<CR>
 " don't open folds on search
 set fdo-=search
+
+"split window navigation alt+hjkl
+nmap <silent> <A-k> :wincmd k<CR>
+nmap <silent> <A-j> :wincmd j<CR>
+nmap <silent> <A-h> :wincmd h<CR>
+nmap <silent> <A-l> :wincmd l<CR>
