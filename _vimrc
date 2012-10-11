@@ -157,9 +157,6 @@ catch /^Vim\%((\a\+)\)\=:E185/
     colo torte
 endtry
 
-" fold / unfold inside multiline strings
-nnoremap <Leader>f zfip<CR>
-nnoremap <Leader>g za<CR>
 " don't open folds on search
 set fdo-=search
 
@@ -168,3 +165,9 @@ nmap <silent> <A-k> :wincmd k<CR>
 nmap <silent> <A-j> :wincmd j<CR>
 nmap <silent> <A-h> :wincmd h<CR>
 nmap <silent> <A-l> :wincmd l<CR>
+
+" navigate wrapped lines
+noremap  <buffer> <silent> k gk
+noremap  <buffer> <silent> j gj
+noremap  <buffer> <silent> 0 g0
+noremap  <buffer> <silent> $ g$
