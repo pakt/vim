@@ -67,7 +67,7 @@ nmap <leader>w :w<cr>
 map <F2> :w<cr>
 
 " kill hilights
-nnoremap <leader><space> :noh<cr>   
+nnoremap <esc> :noh<return><esc>
 " close tab
 map <leader>c :tabclose<cr>
 " quickly close all if nothing waits for saving
@@ -76,14 +76,15 @@ map <leader>q :qa<cr>
 " Quickly open a buffer for scribble
 map <leader>e :tabe ~/buffer<cr>
 
-" Toggle paste mode on and off
-map <leader>pp :setlocal paste!<cr>
+" Insert in paste mode
+map <leader>ip :setlocal paste<cr>i
+map <leader>dp :set nopaste<cr>
 
 " Scroll faster
 nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
 " Exit insert mode faster
-inoremap jj <ESC>
+inoremap jk <ESC>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
@@ -110,20 +111,6 @@ autocmd BufReadPost *
 
 " Remember info about open buffers on close
 set viminfo^=%
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Snippets
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" reload vim snippets
-" This function will update snippets list for current and empty filetype:
-function! SnippetsUpdate(snip_dir)
-  call ResetSnippets()
-  call GetSnippets(a:snip_dir, '_')
-  call GetSnippets(a:snip_dir, &ft)
-endfunction
-
-" This command will cause SnippetsUpdate() with parameter <your_snip_dir>
-nmap <leader>rr :call SnippetsUpdate("~/.vim/snippets/")<CR>
 
 " setup for the visual environment
 if has('gui_running')
@@ -160,14 +147,30 @@ endtry
 " don't open folds on search
 set fdo-=search
 
-"split window navigation alt+hjkl
-nmap <silent> <A-k> :wincmd k<CR>
-nmap <silent> <A-j> :wincmd j<CR>
-nmap <silent> <A-h> :wincmd h<CR>
-nmap <silent> <A-l> :wincmd l<CR>
+"split window navigation shift+hjkl
+nnoremap <silent> <S-k> :wincmd k<CR>
+nnoremap <silent> <S-j> :wincmd j<CR>
+nnoremap <silent> <S-h> :wincmd h<CR>
+nnoremap <silent> <S-l> :wincmd l<CR>
 
 " navigate wrapped lines
 noremap  <buffer> <silent> k gk
 noremap  <buffer> <silent> j gj
 noremap  <buffer> <silent> 0 g0
 noremap  <buffer> <silent> $ g$
+
+" color 80 column
+if exists('+colorcolumn')
+    set colorcolumn=81
+else
+    au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>81v.\+', -1)
+endif
+
+"n/p quickfix
+nnoremap <c-n> :cnext<CR>
+nnoremap <c-p> :cprevious<CR>
+
+"audo indent after paste
+nnoremap <leader>pp p`[v`]=
+nnoremap <leader>PP P`[v`]=
+
