@@ -153,12 +153,6 @@ nnoremap <silent> <S-j> :wincmd j<CR>
 nnoremap <silent> <S-h> :wincmd h<CR>
 nnoremap <silent> <S-l> :wincmd l<CR>
 
-" navigate wrapped lines
-noremap  <buffer> <silent> k gk
-noremap  <buffer> <silent> j gj
-noremap  <buffer> <silent> 0 g0
-noremap  <buffer> <silent> $ g$
-
 " color 80 column
 if exists('+colorcolumn')
     set colorcolumn=81
