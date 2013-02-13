@@ -1,4 +1,6 @@
 " http://vimdoc.sourceforge.net/htmldoc/starting.html#vimrc
+" run pathogen
+execute pathogen#infect()
 
 filetype plugin on
 
@@ -14,15 +16,15 @@ set backupdir=/tmp,d:\vim-backups
 set noswapfile
 
 set smartindent
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
 set expandtab
 
 set cursorline          " highlight current line
 
 set nocompatible        " use vim defaults
-set scrolloff=3         " keep 3 lines when scrolling
+set scrolloff=7         " keep 7 lines when scrolling
 set ai                  " set auto-indenting on for programming
 
 set showcmd             " display incomplete commands
@@ -64,7 +66,6 @@ let g:mapleader = " "
 
 " Fast saving
 nmap <leader>w :w<cr>
-map <F2> :w<cr>
 
 " kill hilights
 nnoremap <esc> :noh<return><esc>
@@ -148,8 +149,8 @@ endtry
 set fdo-=search
 
 "split window navigation shift+hjkl
-nnoremap <silent> <S-k> :wincmd k<CR>
-nnoremap <silent> <S-j> :wincmd j<CR>
+"nnoremap <silent> <S-k> :wincmd k<CR>
+"nnoremap <silent> <S-j> :wincmd j<CR>
 nnoremap <silent> <S-h> :wincmd h<CR>
 nnoremap <silent> <S-l> :wincmd l<CR>
 
@@ -164,7 +165,10 @@ endif
 nnoremap <c-n> :cnext<CR>
 nnoremap <c-p> :cprevious<CR>
 
-"audo indent after paste
-nnoremap <leader>pp p`[v`]=
-nnoremap <leader>PP P`[v`]=
+" MacOSX/Linux
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.o,*.cmo,*.cmi,*.cmx,*.a,*.annot
+set wildignore+=*.cmxa
+" Windows
+set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  
 
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
