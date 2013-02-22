@@ -1,0 +1,6 @@
+[submodule ".vim/bundle/ctrlp"]
+	path = .vim/bundle/ctrlp
+	url = git@github.com:kien/ctrlp.vim.git
+[submodule ".vim/bundle/matrix-scr"]
+	path = .vim/bundle/matrix-scr
+	url = git://github.com/uguu-org/vim-matrix-screensaver.git
