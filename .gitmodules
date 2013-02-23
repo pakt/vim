@@ -4,3 +4,15 @@
 [submodule ".vim/bundle/matrix-scr"]
 	path = .vim/bundle/matrix-scr
 	url = git://github.com/uguu-org/vim-matrix-screensaver.git
+[submodule ".vim/bundle/snipMate"]
+	path = .vim/bundle/snipMate
+	url = git://github.com/msanders/snipmate.vim.git
+[submodule ".vim/bundle/yankRing"]
+	path = .vim/bundle/yankRing
+	url = git://github.com/vim-scripts/YankRing.vim.git
+[submodule ".vim/bundle/syntastic"]
+	path = .vim/bundle/syntastic
+	url = git://github.com/scrooloose/syntastic.git
+[submodule ".vim/bundle/easymotion"]
+	path = .vim/bundle/easymotion
+	url = git://github.com/Lokaltog/vim-easymotion.git

@@ -1,6 +1,6 @@
 " http://vimdoc.sourceforge.net/htmldoc/starting.html#vimrc
 " run pathogen
-execute pathogen#infect()
+call pathogen#infect()
 
 filetype plugin on
 
@@ -21,7 +21,10 @@ set shiftwidth=2
 set softtabstop=2
 set expandtab
 
-set cursorline          " highlight current line
+" hilight line and column
+au WinLeave * set nocursorline nocursorcolumn
+au WinEnter * set cursorline cursorcolumn
+set cursorline cursorcolumn
 
 set nocompatible        " use vim defaults
 set scrolloff=7         " keep 7 lines when scrolling
@@ -67,8 +70,6 @@ let g:mapleader = " "
 " Fast saving
 nmap <leader>w :w<cr>
 
-" kill hilights
-nnoremap <esc> :noh<return><esc>
 " close tab
 map <leader>c :tabclose<cr>
 " quickly close all if nothing waits for saving
@@ -78,14 +79,19 @@ map <leader>q :qa<cr>
 map <leader>e :tabe ~/buffer<cr>
 
 " Insert in paste mode
-map <leader>ip :setlocal paste<cr>i
-map <leader>dp :set nopaste<cr>
+set pastetoggle=<F2>
 
 " Scroll faster
 nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
 " Exit insert mode faster
 inoremap jk <ESC>
+
+" ; instead of shift+;
+nnoremap ; :
+
+" kill hilights
+nmap <silent> ,/ :nohlsearch<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
@@ -234,3 +240,15 @@ set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
+" syntax checking lags, so use it in on-demand mode
+let g:syntastic_mode_map = { 'mode': 'passive',
+                             \ 'active_filetypes': ['ruby', 'php'],
+                             \ 'passive_filetypes': ['puppet'] }
+" f12 checks syntax
+map <F12> :SyntasticCheck<cr>
+" f11 shows errors window
+map <F11> :Errors<cr>
+" Use ocamlc for .ml files
+let g:syntastic_ocaml_use_ocamlc = 1
+" , instead of <leader><leader>
+let g:EasyMotion_leader_key = ','
