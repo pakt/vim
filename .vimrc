@@ -215,8 +215,8 @@ set fdo-=search
 "split window navigation shift+hjkl
 "nnoremap <silent> <S-k> :wincmd k<CR>
 "nnoremap <silent> <S-j> :wincmd j<CR>
-nnoremap <silent> <S-h> :wincmd h<CR>
-nnoremap <silent> <S-l> :wincmd l<CR>
+nnoremap <silent> <S-h> :wincmd h<CR>:vertical resize 85<cr>
+nnoremap <silent> <S-l> :wincmd l<CR>:vertical resize 85<cr>
 
 " color 80 column
 if exists('+colorcolumn')
