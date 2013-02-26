@@ -93,6 +93,9 @@ nnoremap ; :
 " kill hilights
 nmap <silent> ,/ :nohlsearch<CR>
 
+" yank the word under the cursor into status line for search/replace
+map <leader>s :%s/<C-r><C-w>/
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -252,3 +255,5 @@ map <F11> :Errors<cr>
 let g:syntastic_ocaml_use_ocamlc = 1
 " , instead of <leader><leader>
 let g:EasyMotion_leader_key = ','
+" ocaml comments for commentary.vim
+autocmd FileType ocaml set commentstring=(*\ %s\ *)
