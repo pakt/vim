@@ -110,12 +110,12 @@ nnoremap <leader>7 7gt
 nnoremap <leader>8 8gt
 nnoremap <leader>9 9gt
 
-" Switch between tabs with alt + h|l
-map <A-h> :tabp<CR>
-map <A-l> :tabn<CR>
+" Switch between tabs with ctrl+H|L
+nnoremap <C-h> :tabp<CR>
+nnoremap <C-l> :tabn<CR>
 " Move tabs with alt + j|k
-nnoremap <silent> <A-j> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
-nnoremap <silent> <A-k> :execute 'silent! tabmove ' . tabpagenr()<CR>
+nnoremap <silent> <C-j> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
+nnoremap <silent> <C-k> :execute 'silent! tabmove ' . tabpagenr()<CR>
 
 " show tab number on tabline
 if has('gui')
@@ -210,11 +210,14 @@ endtry
 " don't open folds on search
 set fdo-=search
 
-"split window navigation ctrl+hjkl
-nnoremap <silent> <C-k> :wincmd k<CR>
-nnoremap <silent> <C-j> :wincmd j<CR>
-nnoremap <silent> <C-h> :wincmd h<CR>
-nnoremap <silent> <C-l> :wincmd l<CR>
+"split window navigation shift+hjkl
+nnoremap <silent> <S-k> :wincmd k<CR>
+nnoremap <silent> <S-j> :wincmd j<CR>
+nnoremap <silent> <S-h> :wincmd h<CR>
+nnoremap <silent> <S-l> :wincmd l<CR>
+
+" shift+J is now shift+U
+nnoremap <S-u> :join<CR>
 
 " color 80 column
 if exists('+colorcolumn')
