@@ -110,12 +110,12 @@ nnoremap <leader>7 7gt
 nnoremap <leader>8 8gt
 nnoremap <leader>9 9gt
 
-" Switch between tabs with ctrl + h|l
-map <C-h> :tabp<CR>
-map <C-l> :tabn<CR>
-" Move tabs with ctrl + j|k
-nnoremap <silent> <C-j> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
-nnoremap <silent> <C-k> :execute 'silent! tabmove ' . tabpagenr()<CR>
+" Switch between tabs with alt + h|l
+map <A-h> :tabp<CR>
+map <A-l> :tabn<CR>
+" Move tabs with alt + j|k
+nnoremap <silent> <A-j> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
+nnoremap <silent> <A-k> :execute 'silent! tabmove ' . tabpagenr()<CR>
 
 " show tab number on tabline
 if has('gui')
@@ -158,10 +158,6 @@ if exists("+showtabline")
   endfunction
   set stal=2
   set tabline=%!MyTabLine()
-  map    <C-Tab>    :tabnext<CR>
-  imap   <C-Tab>    <C-O>:tabnext<CR>
-  map    <C-S-Tab>  :tabprev<CR>
-  imap   <C-S-Tab>  <C-O>:tabprev<CR>
 endif
 
 " Specify the behavior when switching between buffers 
@@ -188,8 +184,7 @@ if has('gui_running')
         else
             au GUIEnter * simalt ~x "open maximised
         endif
-        set guioptions-=m   "remove menu bar
-        set guioptions-=T   "remove toolbar
+        set guioptions=   "remove menu bar, toolbar, scrollbars
         set guioptions+=c   "console dialogs
 else
         if $TERM =~ '^xterm'
@@ -215,11 +210,11 @@ endtry
 " don't open folds on search
 set fdo-=search
 
-"split window navigation shift+hjkl
-"nnoremap <silent> <S-k> :wincmd k<CR>
-"nnoremap <silent> <S-j> :wincmd j<CR>
-nnoremap <silent> <S-h> :wincmd h<CR>:vertical resize 85<cr>
-nnoremap <silent> <S-l> :wincmd l<CR>:vertical resize 85<cr>
+"split window navigation ctrl+hjkl
+nnoremap <silent> <C-k> :wincmd k<CR>
+nnoremap <silent> <C-j> :wincmd j<CR>
+nnoremap <silent> <C-h> :wincmd h<CR>
+nnoremap <silent> <C-l> :wincmd l<CR>
 
 " color 80 column
 if exists('+colorcolumn')
@@ -230,7 +225,7 @@ endif
 
 "n/p quickfix
 nnoremap <c-n> :cnext<CR>
-nnoremap <c-p> :cprevious<CR>
+nnoremap <c-m> :cprevious<CR>
 
 " MacOSX/Linux
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.o,*.cmo,*.cmi,*.cmx,*.a,*.annot
@@ -238,21 +233,23 @@ set wildignore+=*.cmxa
 " Windows
 set wildignore+=*\\tmp\\*,*.swp,*.zip,*.exe  
 
+" :R dir<CR> will open a scratch buffer with dir output
+command! -nargs=* -complete=shellcmd R new | setlocal buftype=nofile bufhidden=hide noswapfile | r !<args>
+
+" different makes for different OSes
+if has("win32")
+  set makeprg=mingw32-make
+else
+  set makeprg=make
+endif
+
+" save and make
+nnoremap <leader>m :w<CR>:make<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
-" syntax checking lags, so use it in on-demand mode
-let g:syntastic_mode_map = { 'mode': 'passive',
-                             \ 'active_filetypes': ['ruby', 'php'],
-                             \ 'passive_filetypes': ['puppet'] }
-" f12 checks syntax
-map <F12> :SyntasticCheck<cr>
-" f11 shows errors window
-map <F11> :Errors<cr>
-" Use ocamlc for .ml files
-let g:syntastic_ocaml_use_ocamlc = 1
 " , instead of <leader><leader>
 let g:EasyMotion_leader_key = ','
 " ocaml comments for commentary.vim
